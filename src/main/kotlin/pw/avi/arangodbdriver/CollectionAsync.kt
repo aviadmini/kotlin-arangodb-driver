@@ -87,6 +87,11 @@ suspend inline fun <reified T> ArangoCollectionAsync.deleteDocumentAsync(
     optionsBuilder: (DocumentDeleteOptions.() -> Unit) = {}
 ): DocumentDeleteEntity<T> = deleteDocument(key, T::class.java, DocumentDeleteOptions().apply(optionsBuilder)).await()
 
+suspend inline fun <reified T> ArangoCollectionAsync.deleteDocumentsByKeysAsync(
+    keys: Collection<String>,
+    optionsBuilder: (DocumentDeleteOptions.() -> Unit) = {}
+): MultiDocumentEntity<DocumentDeleteEntity<T>> = deleteDocuments(keys, T::class.java, DocumentDeleteOptions().apply(optionsBuilder)).await()
+
 suspend inline fun <reified T> ArangoCollectionAsync.deleteDocumentsAsync(
     docs: Collection<T>,
     optionsBuilder: (DocumentDeleteOptions.() -> Unit) = {}
