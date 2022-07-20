@@ -1,6 +1,14 @@
 ## Kotlin ArangoDB driver
 A wrapper over [arangodb-java-driver](https://github.com/arangodb/arangodb-java-driver) that adds a good amount of Kotlin syntax sugar
 
+### Usage
+
+You need to include arangodb driver dependency, e.g.:<br>
+`implementation("com.arangodb:arangodb-java-driver:6.18.0")`
+
+If you are using async extensions, you also need to include `kotlinx-coroutines-jdk8` package, e.g.:<br>
+`implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")`
+
 ### License
 
 ```
