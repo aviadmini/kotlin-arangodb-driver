@@ -15,13 +15,13 @@ import kotlinx.coroutines.future.await
 
 suspend inline fun ArangoDatabaseAsync.createCollectionAsync(
     name: String,
-    optionsBuilder: ((CollectionCreateOptions) -> Unit)
+    optionsBuilder: (CollectionCreateOptions.() -> Unit)
 ): CollectionEntity =
     createCollection(name, CollectionCreateOptions().apply(optionsBuilder)).await()
 
 // ==== getCollections ====
 
-suspend inline fun ArangoDatabaseAsync.getCollectionsAsync(optionsBuilder: ((CollectionsReadOptions) -> Unit)): MutableCollection<CollectionEntity> =
+suspend inline fun ArangoDatabaseAsync.getCollectionsAsync(optionsBuilder: (CollectionsReadOptions.() -> Unit)): MutableCollection<CollectionEntity> =
     getCollections(CollectionsReadOptions().apply(optionsBuilder)).await()
 
 // ==== cursor ====
@@ -33,17 +33,17 @@ suspend inline fun <reified T> ArangoDatabaseAsync.cursorAsync(cursorId: String)
 suspend inline fun ArangoDatabaseAsync.createAqlFunctionAsync(
     name: String,
     code: String,
-    optionsBuilder: ((AqlFunctionCreateOptions) -> Unit)
+    optionsBuilder: (AqlFunctionCreateOptions.() -> Unit)
 ) {
     createAqlFunction(name, code, AqlFunctionCreateOptions().apply(optionsBuilder)).await()
 }
 
 suspend inline fun ArangoDatabaseAsync.deleteAqlFunctionAsync(
     name: String,
-    optionsBuilder: ((AqlFunctionDeleteOptions) -> Unit)
+    optionsBuilder: (AqlFunctionDeleteOptions.() -> Unit)
 ): Int = deleteAqlFunction(name, AqlFunctionDeleteOptions().apply(optionsBuilder)).await()
 
-suspend inline fun ArangoDatabaseAsync.getAqlFunctionsAsync(optionsBuilder: ((AqlFunctionGetOptions) -> Unit)): Collection<AqlFunctionEntity> =
+suspend inline fun ArangoDatabaseAsync.getAqlFunctionsAsync(optionsBuilder: (AqlFunctionGetOptions.() -> Unit)): Collection<AqlFunctionEntity> =
     getAqlFunctions(AqlFunctionGetOptions().apply(optionsBuilder)).await()
 
 // ==== graphs ====
@@ -51,31 +51,31 @@ suspend inline fun ArangoDatabaseAsync.getAqlFunctionsAsync(optionsBuilder: ((Aq
 suspend inline fun ArangoDatabaseAsync.createGraphAsync(
     name: String,
     edgeDefinitions: Collection<EdgeDefinition>,
-    optionsBuilder: ((GraphCreateOptions) -> Unit)
+    optionsBuilder: (GraphCreateOptions.() -> Unit)
 ): GraphEntity = createGraph(name, edgeDefinitions, GraphCreateOptions().apply(optionsBuilder)).await()
 
 // ==== transactions ====
 
 suspend inline fun <reified T> ArangoDatabaseAsync.transactionAsync(
     action: String,
-    optionsBuilder: ((TransactionOptions) -> Unit)
+    optionsBuilder: (TransactionOptions.() -> Unit)
 ): T = transaction(action, T::class.java, TransactionOptions().apply(optionsBuilder)).await()
 
-suspend inline fun ArangoDatabaseAsync.beginStreamTransactionAsync(optionsBuilder: ((StreamTransactionOptions) -> Unit)): StreamTransactionEntity =
+suspend inline fun ArangoDatabaseAsync.beginStreamTransactionAsync(optionsBuilder: (StreamTransactionOptions.() -> Unit)): StreamTransactionEntity =
     beginStreamTransaction(StreamTransactionOptions().apply(optionsBuilder)).await()
 
 // ==== get document ====
 
 suspend inline fun <reified T> ArangoDatabaseAsync.getDocumentAsync(
     id: String,
-    optionsBuilder: ((DocumentReadOptions) -> Unit)
+    optionsBuilder: (DocumentReadOptions.() -> Unit)
 ): T = getDocument(id, T::class.java, DocumentReadOptions().apply(optionsBuilder)).await()
 
 // ==== createArangoSearch ====
 
 suspend inline fun ArangoDatabaseAsync.createArangoSearchAsync(
     name: String,
-    optionsBuilder: ((ArangoSearchCreateOptions) -> Unit)
+    optionsBuilder: (ArangoSearchCreateOptions.() -> Unit)
 ): ViewEntity = createArangoSearch(name, ArangoSearchCreateOptions().apply(optionsBuilder)).await()
 
 // ==== analyzers ====
@@ -89,7 +89,7 @@ suspend fun ArangoDatabaseAsync.getSearchAnalyzersAsync(): Collection<SearchAnal
 
 suspend inline fun ArangoDatabaseAsync.deleteSearchAnalyzerAsync(
     name: String,
-    optionsBuilder: ((AnalyzerDeleteOptions) -> Unit)
+    optionsBuilder: (AnalyzerDeleteOptions.() -> Unit)
 ) {
     deleteSearchAnalyzer(name, AnalyzerDeleteOptions().apply(optionsBuilder)).await()
 }
